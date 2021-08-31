@@ -1,0 +1,73 @@
+﻿@model IEnumerable<AXSeniors_Reto.Models.ProductModel>
+
+@{
+    ViewData["Title"] = "Lista de productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    @if (TempData["mensaje"] != null)
+    {
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["mensaje"]
+        <button type="button" class="close" aria-label="Close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    }
+
+    <div class="row m-3">
+        <div class="col-sm-6">
+            <h3>Lista de productos</h3>
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-success d-block" asp-action="Create" asp-controller="Product">Agregar nuevo producto</a>
+        </div>
+
+    </div>
+
+    <div class="row">
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <td>@Html.DisplayNameFor(m => m.Id)</td>
+                        <td>@Html.DisplayNameFor(m => m.Name)</td>
+                        <td>@Html.DisplayNameFor(m => m.Lot)</td>
+                        <td>@Html.DisplayNameFor(m => m.Unit)</td>
+                        <td>@Html.DisplayNameFor(m => m.Price)</td>
+                        <td>Acciones</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>@item.Lot</td>
+                            <td>@item.Unit</td>
+                            <td>@item.Price</td>
+                            <td>
+                                <a asp-controller="Product" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                                <a asp-controller="Product" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+                            </td>
+                        </tr>
+
+                    }
+
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No existen registros</p>
+        }
+
+
+
+    </div>
+
+</div>
